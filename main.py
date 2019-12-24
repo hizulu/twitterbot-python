@@ -29,7 +29,8 @@ for friend in tweepy.Cursor(api.friends).items(5):
         tweet = item._json
         tweets.append({
             'text': tweet['text'],
-            'created_at': tweet['created_at']
+            'created_at': tweet['created_at'],
+            'real': tweet
         })
 
     data['tweets'] = tweets
