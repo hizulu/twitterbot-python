@@ -1,0 +1,220 @@
+{
+  "axes": [
+    {
+      "scale": "x",
+      "type": "x"
+    },
+    {
+      "scale": "y",
+      "type": "y"
+    }
+  ],
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "col": "data",
+          "idx": "sikap",
+          "val": 569
+        },
+        {
+          "col": "data",
+          "idx": "2",
+          "val": 494
+        },
+        {
+          "col": "data",
+          "idx": "presiden",
+          "val": 480
+        },
+        {
+          "col": "data",
+          "idx": "perintah",
+          "val": 390
+        },
+        {
+          "col": "data",
+          "idx": "yunartowijaya",
+          "val": 366
+        },
+        {
+          "col": "data",
+          "idx": "agama",
+          "val": 324
+        },
+        {
+          "col": "data",
+          "idx": "impor",
+          "val": 318
+        },
+        {
+          "col": "data",
+          "idx": "hukum",
+          "val": 310
+        },
+        {
+          "col": "data",
+          "idx": "harap",
+          "val": 302
+        },
+        {
+          "col": "data",
+          "idx": "toleransi",
+          "val": 300
+        },
+        {
+          "col": "data",
+          "idx": "rezim",
+          "val": 296
+        },
+        {
+          "col": "data",
+          "idx": "akun",
+          "val": 295
+        },
+        {
+          "col": "data",
+          "idx": "mulai",
+          "val": 295
+        },
+        {
+          "col": "data",
+          "idx": "amp",
+          "val": 290
+        },
+        {
+          "col": "data",
+          "idx": "apa",
+          "val": 288
+        },
+        {
+          "col": "data",
+          "idx": "ttg",
+          "val": 284
+        },
+        {
+          "col": "data",
+          "idx": "nyata",
+          "val": 282
+        },
+        {
+          "col": "data",
+          "idx": "ngetwit",
+          "val": 281
+        },
+        {
+          "col": "data",
+          "idx": "tega",
+          "val": 280
+        },
+        {
+          "col": "data",
+          "idx": "fadjroel",
+          "val": 266
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "source": "table",
+      "transform": [
+        {
+          "keys": [
+            "data.idx"
+          ],
+          "type": "facet"
+        },
+        {
+          "type": "stats",
+          "value": "data.val"
+        }
+      ]
+    }
+  ],
+  "height": 500,
+  "legends": [],
+  "marks": [
+    {
+      "from": {
+        "data": "table",
+        "transform": [
+          {
+            "keys": [
+              "data.col"
+            ],
+            "type": "facet"
+          },
+          {
+            "height": "data.val",
+            "point": "data.idx",
+            "type": "stack"
+          }
+        ]
+      },
+      "marks": [
+        {
+          "properties": {
+            "enter": {
+              "fill": {
+                "field": "data.col",
+                "scale": "color"
+              },
+              "width": {
+                "band": true,
+                "offset": -1,
+                "scale": "x"
+              },
+              "x": {
+                "field": "data.idx",
+                "scale": "x"
+              },
+              "y": {
+                "field": "y",
+                "scale": "y"
+              },
+              "y2": {
+                "field": "y2",
+                "scale": "y"
+              }
+            }
+          },
+          "type": "rect"
+        }
+      ],
+      "type": "group"
+    }
+  ],
+  "padding": "auto",
+  "scales": [
+    {
+      "domain": {
+        "data": "table",
+        "field": "data.idx"
+      },
+      "name": "x",
+      "range": "width",
+      "type": "ordinal",
+      "zero": false
+    },
+    {
+      "domain": {
+        "data": "stats",
+        "field": "sum"
+      },
+      "name": "y",
+      "nice": true,
+      "range": "height"
+    },
+    {
+      "domain": {
+        "data": "table",
+        "field": "data.col"
+      },
+      "name": "color",
+      "range": "category20",
+      "type": "ordinal"
+    }
+  ],
+  "width": 960
+}

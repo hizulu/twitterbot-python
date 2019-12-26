@@ -119,6 +119,13 @@ def clean_data_from_twitterscaper():
     clean_file.close()
 
 
+def visualize():
+    file = open('result_' + filename, 'r')
+    data = json.loads(file.read())
+    print(json.dumps(data, indent=1))
+
+
+# visualize()
 # clean_data()
 # clean_data_from_twitterscaper()
 # exit()
@@ -126,7 +133,7 @@ indonesian_stopwords = StopWordRemoverFactory().get_stop_words()
 punctuation = list(string.punctuation)
 stop = indonesian_stopwords + stopwords.words('english') + punctuation + \
     ['jokowi', 'yg', 'ada', 'pak', 'ini', 'juga',
-        'dan', 'rt', '…', 'mau', 'jangan', 'tanya', 'dlm', 'sering', 'jadi']
+        'dan', 'rt', '…', 'mau', 'jangan', 'tanya', 'dlm', 'sering', 'jadi', 'lu', 'kalian']
 
 word_count = 0
 hashtag_all = []
@@ -136,8 +143,13 @@ with open(clean_filename, 'r') as f:
     count_all = Counter()
     hashtag_counter = Counter()
     source_counter = Counter()
+    # data_to_read = 20
+    i = 0
     for line in f:
         if(line.strip()):
+            # if(i > data_to_read):
+            #     break
+            i += 1
             word_count += 1
             print('tweet processed: {}'.format(word_count))
             tweet = json.loads(line)
@@ -162,10 +174,9 @@ with open(clean_filename, 'r') as f:
                 s = re.sub(r"http\S+", "", tweet['source'])  # remove url
                 cleanr = re.compile('<.*?>')
                 cleantext = re.sub(cleanr, '', s)
-                source_all = [source.lower()
-                              for source in cleantext.split() if source.lower() in source_data]
+                source_all = [cleantext.lower()]
                 source_counter.update(source_all)
-            
+
             print('-----------------')
 
     word_freq = count_all.most_common(20)
@@ -174,13 +185,14 @@ with open(clean_filename, 'r') as f:
     labels, freq = zip(*word_freq)
     data = {'data': freq, 'x': labels}
     bar = vincent.Bar(data, iter_idx='x')
-    bar.to_json('result_' + filename)
-    result_file = open('result_'+filename)
+    bar.to_json('resultbar_' + filename)
+    result_file = open('result_'+filename, 'w')
     result = {
         'text_result': word_freq,
         'hashtag_result': hashtag_freq,
-        'source_result': source_counter
+        'source_result': source_freq,
+        'data_count': i
     }
     result_file.write(json.dumps(result))
     result_file.close()
-    print(word_freq)
+    print("Finish! Ready to visualize")
